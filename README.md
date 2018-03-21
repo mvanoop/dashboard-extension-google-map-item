@@ -1,8 +1,5 @@
 The **Online Map** extension is a [custom dashboard item](https://www.devexpress.com/Support/Center/Question/Details/T491984) that allows you to place callouts on Google or Bing maps using geographical coordinates.
 
-This custom item supports the [Master-Filtering](https://documentation.devexpress.com/#Dashboard/CustomDocument117060) feature.
-
-
 ## Installation
 
 1. Download the latest version of scripts 
