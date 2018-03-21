@@ -1,5 +1,5 @@
 {
-  "name": "dashboard-extension-online-map-item",
+  "name": "dashboard-extension-google-map-item",
   "version": "1.0.0",
   "description": "A custom **Online Map** item allows you to place callouts on Google  using any text string",
   "repository": {
