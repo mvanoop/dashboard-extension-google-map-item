@@ -28,7 +28,7 @@ var CustomItems;
 /// <reference path="../typings/globals/dashboards/dx-dashboard-designer.d.ts" />
 var CustomItems;
 (function (CustomItems) {
-    CustomItems.GOOGLE_MAP_EXTENSION_NAME = 'OnlineMap';
+    CustomItems.GOOGLE_MAP_EXTENSION_NAME = 'OnlineGoogleMap';
     CustomItems.onlineMapMeta = {
         bindings: [{
             propertyName: 'Values',
@@ -67,11 +67,6 @@ var CustomItems;
 (function (CustomItems) {
     CustomItems.GOOGLE_MAP_ICON = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg version=\"1.1\" id=\"" + CustomItems.onlineMapMeta.icon + "\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n\t viewBox=\"0 0 24 24\" style=\"enable-background:new 0 0 24 24;\" xml:space=\"preserve\">\n<style type=\"text/css\">\n\t.dx_red{fill:#E25454;}\n\t.dx_darkgray{fill:#414141;}\n</style>\n<path class=\"dx_darkgray\" d=\"M12,1C8.1,1,5,4.1,5,8c0,3.9,3,10,7,15c4-5,7-11.1,7-15C19,4.1,15.9,1,12,1z M12,12c-2.2,0-4-1.8-4-4\n\tc0-2.2,1.8-4,4-4s4,1.8,4,4C16,10.2,14.2,12,12,12z\"/>\n<circle class=\"dx_red\" cx=\"12\" cy=\"8\" r=\"2\"/>\n</svg>";
 })(CustomItems || (CustomItems = {}));
-/// <reference path="../typings/globals/dashboards/dx-dashboard-designer.d.ts" />
-/// <reference path="localization.ts" />
-/// <reference path="meta.ts" />
-/// See the DevExtreme documentation to learn more about the Map UI widget settings.
-/// https://js.devexpress.com/Documentation/16_2/ApiReference/UI_Widgets/dxMap/
 var CustomItems;
 (function (CustomItems) {
     var googleMapItem = (function (_super) {
@@ -93,7 +88,6 @@ var CustomItems;
         };
         googleMapItem.prototype.clearSelection = function () {
             _super.prototype.clearSelection.call(this);
-           // this._updateSelection();
         };
         googleMapItem.prototype._getDataSource = function () {
             var data = [];
@@ -128,70 +122,6 @@ var CustomItems;
             if (mydata.length <= 1)
                 return;
             this._codePlace(mydata, map, this._clusterMapping)
-            //console.log(mydata);
-            //var data = google.visualization.arrayToDataTable(mydata);
-            //var options = {
-            //    showTooltip: true,
-            //    enableScrollWheel:true,
-            //    showInfoWindow: true
-            //};
-            //var map = new google.visualization.Map($element[0]);
-            //map.draw(data, options);
-            //map.select = function () {
-            //    alert('select');
-            //};
-            //var _this = this;
-            //var markers = [], routes = [], mode = this.getPropertyValue('DisplayMode'), showMarkers = mode === 'Markers' || mode === 'MarkersAndRoutes' || this.canMasterFilter(), showRoutes = mode === 'Routes' || mode === 'MarkersAndRoutes';
-            //if (this.getBindingValue('Latitude').length > 0 && this.getBindingValue('Longitude').length > 0) {
-            //    this.iterateData(function (row) {
-            //        var latitude = row.getValue('Latitude')[0];
-            //        var longitude = row.getValue('Longitude')[0];
-            //        if (latitude && longitude) {
-            //            if (showMarkers) {
-            //                markers.push({
-            //                    location: { lat: latitude, lng: longitude },
-            //                    iconSrc: _this.isSelected(row) ? "https://js.devexpress.com/Demos/RealtorApp/images/map-marker.png" : null,
-            //                    onClick: function (args) { _this._onClick(row); },
-            //                    tag: row
-            //                });
-            //            }
-            //            if (showRoutes) {
-            //                routes.push([latitude, longitude]);
-            //            }
-            //        }
-            //    });
-            //}
-            //var autoAdjust = markers.length > 1 || routes.length > 1, options = {
-            //    provider: this.getPropertyValue('Provider').toLowerCase(),
-            //    type: this.getPropertyValue('Type').toLowerCase(),
-            //    controls: true,
-            //    zoom: autoAdjust ? 1000 : 1,
-            //    autoAdjust: autoAdjust,
-            //    width: this.contentWidth(),
-            //    height: this.contentHeight(),
-            //    // Use the template below to authenticate the application within the required map provider.
-            //    //key: { 
-            //    //    bing: 'BINGAPIKEY',
-            //    //    google: 'GOOGLEAPIKEY'
-            //    //},             
-            //    markers: markers,
-            //    routes: routes.length > 0 ? [{
-            //            weight: 6,
-            //            color: 'blue',
-            //            opacity: 0.5,
-            //            mode: '',
-            //            locations: routes
-            //        }] : []
-            //};
-            //if (changeExisting && this.mapViewer) {
-            //    this.mapViewer.option(options);
-            //}
-            //else {
-            //    this.mapViewer = new DevExpress.ui.dxMap($element, options);
-            //}
-        };
-        googleMapItem.prototype._getImageBase64 = function () {
-            return this.exportingImage;
         };
         googleMapItem.prototype._codePlace = function (data, map, callback) {
             try {
@@ -238,12 +168,7 @@ var CustomItems;
                         callback(_this.markers, map);
                     else {
                         _this.i++;
-                        //if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                        //    console.log("OVER_QUERY_LIMIT skipped the entry and waiting for 5s before next data ");
-                        //    setTimeout(function () { _this._codePlace(data, map, callback); }, 5000);
-                        //}
-                        //else
-                            _this._codePlace(data, map, callback);
+                        _this._codePlace(data, map, callback);
                     }
                 });
                 
@@ -253,54 +178,19 @@ var CustomItems;
             }
          
         };
-        //googleMapItem.prototype.getExportInfo = function () {
-        //    return {
-        //        image: this._getImageBase64()
-        //    }
-        //}
         googleMapItem.prototype._clusterMapping = function (markers, map) {
-
             var bounds = new google.maps.LatLngBounds();
             for (var i = 0; i < markers.length; i++) {
                 bounds.extend(markers[i].getPosition());
             }
             map.fitBounds(bounds);
-
             var markerCluster = new MarkerClusterer(map, markers,
          { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
-
-          
         };
-       
         googleMapItem.prototype._onClick = function (row) {
            // this.setMasterFilter(row);
            // this._updateSelection();
         };
-        googleMapItem.prototype._updateSelection = function () {
-            //var _this = this;
-            //var markers = this.mapViewer.option('markers');
-            //markers.forEach(function (marker) {
-            //    marker.iconSrc = _this.isSelected(marker.tag) ? "https://js.devexpress.com/Demos/RealtorApp/images/map-marker.png" : null;
-            //});
-            //this.mapViewer.option('autoAdjust', false);
-            //this.mapViewer.option('markers', markers);
-        };
-        //googleMapItem.prototype._updateExportingImage = function () {
-        //    debugger;
-
-        //    //useCORS: true,
-        //    //allowTaint:true,
-        //    var _this = this;
-        //    var ele = document.getElementById(this._getID());
-
-        //    html2canvas(ele, { useCORS: true, allowTaint: false, logging: true }).then(function (canvas) {
-        //        //_this.exportingImage = canvas;
-        //        //canvas.width = this.contentWidth();
-        //        //canvas.height = this.contentHeight();
-        //        _this.exportingImage = canvas.toDataURL().replace("data:image/png;base64,","");
-        //        //document.body.appendChild(canvas)
-        //    });
-        //};
         googleMapItem.prototype._getID = function () {
             return "map-" + this.getName();
         }
